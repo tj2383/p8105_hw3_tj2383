@@ -28,10 +28,12 @@ brfss_data = brfss_smart2010 %>%
   janitor::clean_names() %>% 
   filter(topic == "Overall Health") %>% 
   filter(response == "Excellent" | response == "Very good" | response == "Good" | response == "Fair" | response == "Poor") %>% 
-  mutate(response = factor(response, levels = ordered("Excellent", "Very good", "Good", "Fair", "Poor")))
+  mutate(response = factor(response, levels = ordered(c("Excellent", "Very good", "Good", "Fair", "Poor"))))
 ```
 
-In the following code chunks I answer questions about the cleaned brfss_data
+In the following code chunks I answer questions about the cleaned brfss_data:
+
+In this code chunk I answer which states have 7 locations in 2002.
 ```{r}
 brfss_data %>% 
   select(year, locationabbr, locationdesc) %>% 
@@ -65,6 +67,18 @@ brfss_data %>%
   ) + 
   theme_bw() + 
   theme(legend.position = "bottom")
+```
+
+In this code chunk I make a table of the mean and standard deviation of proportion of "Excellent" responses in NY State in 2002, 2006, and 2010.
+```{r}
+brfss_data %>%
+  spread(key = response, value = data_value) %>%
+  janitor::clean_names() %>% 
+  select(year, excellent, locationabbr) %>% 
+  filter(!is.na(excellent) & locationabbr == "NY" & (year == "2002" | year == "2006" | year == "2010")) %>%
+  group_by(year) %>% 
+  summarize(mean_proportion_excellent = mean(excellent), sd_proportion_excellent = sd(excellent)) %>% 
+  knitr::kable()
 ```
 
 
