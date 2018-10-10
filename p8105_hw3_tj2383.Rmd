@@ -81,5 +81,29 @@ brfss_data %>%
   knitr::kable()
 ```
 
+In this code chunk I compute the average proportion in each response category (taking the average across locations in a state) for each year and state. Then I make a five-panel plot that shows, for each response category separately, the distribution of these state-level averages over time.
+```{r}
+brfss_data %>% 
+  select(year, locationabbr, response, data_value) %>% 
+  group_by(year, locationabbr, response) %>% 
+  summarize(mean_response = mean(data_value)) %>% 
+  ggplot(aes(x = year, y = mean_response, color = locationabbr)) + 
+  geom_point() +
+  facet_grid(~response) +
+  labs(
+    title = "Average proportion of response values in each state for each year plot",
+    x = "year",
+    y = "average proportion of response",
+    caption = "Data from BRFSS_2010"
+  ) +
+  viridis::scale_color_viridis(
+    name = "state", 
+    discrete = TRUE
+  ) + 
+  theme_bw() + 
+  theme(legend.position = "bottom")
+```
+
+
 
 
