@@ -31,3 +31,17 @@ brfss_data = brfss_smart2010 %>%
   mutate(response = factor(response, levels = ordered("Excellent", "Very good", "Good", "Fair", "Poor")))
 ```
 
+In this code chunk I answer questions about the cleaned brfss_data
+```{r}
+brfss_data %>% 
+  select(year, locationabbr, locationdesc) %>% 
+  filter(year == "2002") %>% 
+  distinct(locationdesc, locationabbr) %>% 
+  group_by(locationabbr) %>% 
+  count() %>% 
+  filter(n == "7")
+```
+
+In 2002, the states observed with 7 locations are CT, FL, and NC.
+
+
