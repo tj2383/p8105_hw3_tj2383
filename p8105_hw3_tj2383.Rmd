@@ -170,5 +170,21 @@ instacart_data %>%
     theme(legend.position = "bottom")
 ```
 
+In the following code chunk I create a table of 
+```{r}
+instacart_data %>% 
+  filter(aisle == "baking ingredients" | aisle == "dog food care" | aisle == "packaged vegetables fruits") %>% 
+  group_by(aisle, product_name) %>% 
+  summarize(number_ordered = n()) %>% 
+  arrange(desc(number_ordered)) %>% 
+  group_by(aisle) %>% 
+  top_n(n = 1) %>% 
+  rename(most_popular_item = product_name) %>% 
+  knitr::kable()
+```
+
+
+
+
 
 
