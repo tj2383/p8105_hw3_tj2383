@@ -104,6 +104,38 @@ brfss_data %>%
   theme(legend.position = "bottom")
 ```
 
+##Problem 2
 
+Testing inline code:
+```{r}
+library(p8105.datasets)
+data("instacart")
+
+instacart_data = instacart %>% 
+  janitor::clean_names()
+
+nrow(instacart_data)
+ncol(instacart_data)
+
+instacart_data %>% 
+  count()
+
+instacart_data %>% 
+  distinct(user_id) %>% 
+  count()
+
+instacart_data %>% 
+  select(user_id) %>% 
+  head(1)
+
+instacart_data %>% 
+  select(product_name) %>% 
+  head(1)
+
+instacart_data %>% 
+  select(department) %>% 
+  head(1)
+```
+The size of the instacart dataset is `r nrow(instacart_data)` rows and `r ncol(instacart_data)` columns. It is an anonymized dataset with grocery orders from instacart users, however, it is not generalizable to the broader instacart user population because it is not a random sample of products, users, or purchases. The dataset contains `r count(instacart_data)` observations and `r instacart_data %>% distinct(user_id) %>% count()` distinct users. Some key variables in the dataset include `user_id` such as `r instacart_data %>% select(user_id) %>% head(1)` and the `product_name` variable indicates a product the user purchased, in thiscase `r instacart_data %>% select(product_name) %>% head(1)` and the `department` variable indicates which deparment this product came from, in this case, `r instacart_data %>% select(department) %>% head(1)`.
 
 
