@@ -152,6 +152,23 @@ instacart_data %>%
   select(aisle) %>% 
   head(1)
 ```
-There are `r instacart_data %>% select(aisle) %>% count()` aisles and the most items are ordered from the following aisle: `r instacart_data %>% group_by(aisle) %>% summarize(amount_ordered = n()) %>% arrange(desc(amount_ordered)) %>% select(aisle) %>% head(1)`
+There are `r instacart_data %>% select(aisle) %>% count()` aisles and the most items are ordered from the following aisle: `r instacart_data %>% group_by(aisle) %>% summarize(amount_ordered = n()) %>% arrange(desc(amount_ordered)) %>% select(aisle) %>% head(1)`.
+
+The following plot shows the number of items ordered in each distinct aisle:
+```{r}
+instacart_data %>% 
+  group_by(aisle) %>% 
+  summarize(amount_ordered = n()) %>% 
+  ggplot(aes(x = aisle, y = amount_ordered)) + 
+  geom_point() +
+  labs(
+     title = "Items ordered in each aisle",
+     x = "aisle",
+     y = "number of items ordered"
+    ) +
+    theme_bw() +
+    theme(legend.position = "bottom")
+```
+
 
 
