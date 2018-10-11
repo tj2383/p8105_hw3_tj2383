@@ -170,7 +170,7 @@ instacart_data %>%
     theme(legend.position = "bottom")
 ```
 
-In the following code chunk I create a table of 
+In the following code chunk I create a table of the most popular item in the aisles `baking ingredients`, `dog food care`, and `packaged vegetables and fruits`.
 ```{r}
 instacart_data %>% 
   filter(aisle == "baking ingredients" | aisle == "dog food care" | aisle == "packaged vegetables fruits") %>% 
@@ -183,6 +183,16 @@ instacart_data %>%
   knitr::kable()
 ```
 
+In the following code chunk I create a table showing the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week:
+```{r}
+instacart_data %>% 
+  filter(product_name == "Pink Lady Apples" | product_name == "Coffee Ice Cream") %>% 
+  select(product_name, order_dow, order_hour_of_day) %>% 
+  group_by(order_dow, product_name) %>% 
+  summarize(mean_hour = mean(order_hour_of_day)) %>% 
+  spread(key = order_dow, value = mean_hour) %>% 
+  knitr::kable()
+```
 
 
 
