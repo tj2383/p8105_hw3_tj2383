@@ -252,6 +252,31 @@ ny_noaa_data %>%
 The most commonly observed value for snowfall was 0 mm because snowfall is not observed at high frequency throughout the year especially during the spring, summer, and fall months.
 
 
+The following plot: Make a two-panel plot showing the average max temperature in January and in July in each station across years. Is there any observable / interpretable structure? Any outliers?
+```{r}
+ny_noaa_data %>% 
+  filter(tmax != "NA", month == "01" | month == "07") %>%
+  group_by(id, year, month) %>% 
+  summarize(mean_tmax = mean(tmax)) %>% 
+  ggplot(aes(x = year, y = mean_tmax, color = id)) +
+  geom_point() +
+  facet_grid(~month) +
+  labs(
+      x = "year",
+      y = "average temperature (°C)",
+      title = "Average temperatures for january and july at New York weather stations",
+      caption = "Data from NOAA"
+    ) +
+    viridis::scale_color_viridis(
+      discrete = TRUE,
+      name = "ID"
+    ) +
+    theme_bw() +
+    theme(legend.position = "bottom")
+```
+
+
+
 
 
 
