@@ -194,6 +194,64 @@ instacart_data %>%
   knitr::kable()
 ```
 
+##Problem 3
+
+Testing in line code for a description of the dataset:
+```{r}
+library(p8105.datasets)
+data(ny_noaa)
+
+nrow(ny_noaa)
+ncol(ny_noaa)
+
+ny_noaa %>% 
+  count()
+
+ny_noaa %>% 
+  distinct(id) %>% 
+  count()
+
+ny_noaa %>% 
+  select(date) %>% 
+  head(1)
+
+ny_noaa %>% 
+  select(prcp) %>% 
+  head(1)
+
+ny_noaa %>% 
+  select(tmax) %>% 
+  head(1)
+
+ny_noaa %>% 
+  select(tmin) %>% 
+  head(1)
+
+ny_noaa %>% 
+  filter(is.na(tmax) | is.na(tmin) | is.na(prcp) | is.na(snow) | is.na(snwd)) %>% 
+  nrow()
+```
+The size of the NOAA dataset is `r nrow(ny_noaa)` rows and `r ncol(ny_noaa)` columns. This public dataset provides information on weather and this specific version contains information from weather stations in NY state. The dataset contains `r count(ny_noaa)` observations and `r ny_noaa %>% distinct(id) %>% count()` distinct weather stations. Some key variables in the dataset include `id` such as `r ny_noaa %>% select(id) %>% head(1)` and the `date` variable indicates the date of the weather observation `r ny_noaa %>% select(date) %>% head(1)`. The `prcp` variable indicates the precipitation that occurred on this date. The `tmax` and `tmin` variable tell us the maximum and minimum temperatures on this date. There are several missing data values in this data set, especially for prcp, tmin, and tmax, precisely `r ny_noaa %>% filter(is.na(tmax) | is.na(tmin) | is.na(prcp) | is.na(snow) | is.na(snwd)) %>% nrow()` missing observations.
+
+
+In this code chunk I clean the dataset ny_noaa_data:
+-created separate variables for year, month, and day
+-ensure observations for temperature, precipitation, and snowfall are given in reasonable units
+```{r}
+ny_noaa_data = ny_noaa %>%
+  janitor::clean_names() %>% 
+  separate(date, into = c("year", "month", "day"), sep = "-") %>%
+  mutate(prcp = prcp / 10, tmax = as.integer(tmax) / 10, tmin = as.integer(tmin) / 10)
+
+ny_noaa_data %>% 
+  group_by(snow) %>% 
+  summarize(freq_observed = n()) %>% 
+  arrange(desc(freq_observed)) %>% 
+  head(1)
+```
+The most commonly observed value for snowfall was 0 mm because snowfall is not observed at high frequency throughout the year especially during the spring, summer, and fall months.
+
+
 
 
 
