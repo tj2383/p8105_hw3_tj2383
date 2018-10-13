@@ -82,6 +82,7 @@ brfss_data %>%
   summarize(mean_proportion_excellent = mean(excellent), sd_proportion_excellent = sd(excellent)) %>% 
   knitr::kable()
 ```
+
 This table shows that the mean proportion of "Excellent" responses decreased from 2002 to 2006 but then remained relatively stable from 2006 to 2010. The standard deviation of the proportion of "Excellent" responses slightly decreased from 2002 to 2006 to 2010.
 
 In this code chunk I compute the average proportion in each response category (taking the average across locations in a state) for each year and state. Then I make a five-panel plot that shows, for each response category separately, the distribution of these state-level averages over time.
@@ -106,6 +107,8 @@ brfss_data %>%
   theme_bw() + 
   theme(legend.position = "bottom")
 ```
+
+This plot shows us that for overall health the response across all states mostly falls under the "very good" and "good" categories. We can also see that the for the "poor" category there is little variation across all states compared to the other response categories.
 
 ##Problem 2
 
@@ -172,6 +175,8 @@ instacart_data %>%
     theme_bw() +
     theme(legend.position = "bottom")
 ```
+This plot is able to easily shows us which aisles the most number of orders are coming from.
+
 
 In the following code chunk I create a table of the most popular item in the aisles `baking ingredients`, `dog food care`, and `packaged vegetables and fruits`.
 ```{r}
@@ -186,6 +191,8 @@ instacart_data %>%
   knitr::kable()
 ```
 
+This table shows us that the most popular items in the packaged vegetables fruits aisle is organix baby spinach with an order count of 9784. Light brown sugar is the most popular item in the baking ingredients aisle with an order count of 499. Snack sticks chicken & rice recipe dog treats is the most popular item in the dog food care aisle with an order count of 30.
+
 In the following code chunk I create a table showing the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week:
 ```{r}
 instacart_data %>% 
@@ -196,6 +203,8 @@ instacart_data %>%
   spread(key = order_dow, value = mean_hour) %>% 
   knitr::kable()
 ```
+
+This table shows us that on average pink lady apples are ordered earlier in the  day than coffee ice cream. Assuming that day 0 is Sunday and day 6 is Saturday, we see that on Sunday and Friday, the average hour that both items were purchased is almost the same.
 
 ##Problem 3
 
@@ -280,6 +289,8 @@ ny_noaa_data %>%
     guides(color = guide_legend(nrow = 20))
 ```
 
+This plot shows us that the average maximum temperature across all weather stations in NY is lower in January than in July. Yes, we can see outliers, in particular, one station experienced a low tmax in July in 1993 and another station experienced a low tmax in July in 2004.
+
 The following is a two-panel plot showing tmax vs tmin for the full dataset and the distribution of snowfall values greater than 0 and less than 100 separately by year
 ```{r}
 t_max_min_plot = ny_noaa_data %>% 
@@ -307,6 +318,7 @@ snowfall_plot = ny_noaa_data %>%
 t_max_min_plot / snowfall_plot
 ```
 
+The first plots shows . The second plot shows us that the distribution of snowfall (greater than 0 mm and less than 100 mm) has remained relatively the same across all years, except for a few outliers. In 1998, 2006, and 2010 we see that the snowfall was slightly less.
 
 
 
