@@ -174,9 +174,10 @@ instacart_data %>%
      y = "number of items ordered"
     ) +
     theme_bw() +
-    theme(legend.position = "bottom")
+    theme(legend.position = "bottom") +
+  theme(axis.text.x = element_text(angle = 90, size = 5))
 ```
-This plot is able to easily shows us which aisles the most number of orders are coming from. The largest peak is for fresh vegetables fresh fruits, so we know that the most orders come from this aisle.
+This plot is able to easily shows us which aisles the most number of orders are coming from. The largest peaks are for fresh vegetables and fresh fruits, so we know that the most orders come from these aisles.
 
 
 In the following code chunk I create a table of the most popular item in the aisles `baking ingredients`, `dog food care`, and `packaged vegetables and fruits`.
@@ -303,7 +304,8 @@ t_max_min_plot = ny_noaa_data %>%
       y = "min temperature (°C)",
       title = "Maximum and minimum temperatures for full dataset",
       caption = "Data from NOAA"
-    )
+    ) + 
+  theme_bw()
 
 snowfall_plot = ny_noaa_data %>% 
   filter(snow != "NA" & snow > 0 & snow < 100) %>% 
@@ -314,7 +316,9 @@ snowfall_plot = ny_noaa_data %>%
       y = "snowfall amount (mm)",
       title = "distribution of snowfall by year",
       caption = "Data from NOAA"
-    )
+    ) + 
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90, size = 5))
 
 t_max_min_plot / snowfall_plot
 ```
