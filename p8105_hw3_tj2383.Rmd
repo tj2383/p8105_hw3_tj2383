@@ -9,6 +9,7 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(patchwork)
+library(hexbin)
 ```
 
 ##Problem 1
@@ -166,7 +167,7 @@ instacart_data %>%
   group_by(aisle) %>% 
   summarize(amount_ordered = n()) %>% 
   ggplot(aes(x = aisle, y = amount_ordered)) + 
-  geom_point() +
+  geom_col() +
   labs(
      title = "Items ordered in each aisle",
      x = "aisle",
@@ -175,7 +176,7 @@ instacart_data %>%
     theme_bw() +
     theme(legend.position = "bottom")
 ```
-This plot is able to easily shows us which aisles the most number of orders are coming from.
+This plot is able to easily shows us which aisles the most number of orders are coming from. The largest peak is for fresh vegetables fresh fruits, so we know that the most orders come from this aisle.
 
 
 In the following code chunk I create a table of the most popular item in the aisles `baking ingredients`, `dog food care`, and `packaged vegetables and fruits`.
