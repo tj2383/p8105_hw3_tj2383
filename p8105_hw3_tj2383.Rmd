@@ -79,8 +79,9 @@ brfss_data %>%
   janitor::clean_names() %>% 
   select(year, excellent, locationabbr) %>% 
   filter(!is.na(excellent) & locationabbr == "NY" & (year == "2002" | year == "2006" | year == "2010")) %>%
+  mutate(prop_excellent = excellent / 100) %>% 
   group_by(year) %>% 
-  summarize(mean_proportion_excellent = mean(excellent), sd_proportion_excellent = sd(excellent)) %>% 
+  summarize(mean_proportion_excellent = mean(prop_excellent), sd_proportion_excellent = sd(prop_excellent)) %>% 
   knitr::kable()
 ```
 
@@ -89,10 +90,10 @@ This table shows that the mean proportion of "Excellent" responses decreased fro
 In this code chunk I compute the average proportion in each response category (taking the average across locations in a state) for each year and state. Then I make a five-panel plot that shows, for each response category separately, the distribution of these state-level averages over time.
 ```{r}
 brfss_data %>% 
-  select(year, locationabbr, response, data_value) %>% 
+  mutate(prop = data_value / 100) %>% 
   group_by(year, locationabbr, response) %>% 
-  summarize(mean_response = mean(data_value)) %>% 
-  ggplot(aes(x = year, y = mean_response, color = locationabbr)) + 
+  summarize(mean_response_prop = mean(prop)) %>% 
+  ggplot(aes(x = year, y = mean_response_prop, color = locationabbr)) + 
   geom_point() +
   facet_grid(~response) +
   labs(
